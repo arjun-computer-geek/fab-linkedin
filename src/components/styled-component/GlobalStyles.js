@@ -10,6 +10,8 @@ const GlobalStyle = createGlobalStyle`
   html{
     /* background-color: #f3f2ef; */
     background-color: #ffff;
+    font-size: 12px;
+    overflow-x: hidden;
   }
   body{
     font-family: Arial, sans-serif;
