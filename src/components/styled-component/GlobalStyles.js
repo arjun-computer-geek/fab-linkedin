@@ -20,5 +20,9 @@ const GlobalStyle = createGlobalStyle`
   a:hover{
     cursor: pointer;
   }
+  button:hover{
+    cursor: pointer;
+  }
+  
 `
 export default GlobalStyle;
