@@ -11,34 +11,34 @@ import SignupLoginHeader from '../header/SignupLoginHeader'
 import InputPassword from '../styled-component/InputPassword';
 import { Link } from 'react-router-dom';
 const Signup = () => {
-    return (
-        <>
-            <SignupLoginHeader />
-            <SignupContainer>
-                <h2>Make the most of your professional life</h2>
-                <LoginCard>
-                    <Input type="text" placeholder='Email or Phone number' />
-                    <InputPassword placeholder="Password" />
-                    <TermsCondition>
-                        By clicking Agree &amp; Join, you agree to the LinkedIn <a href="#">User Agreement</a>, <a href="#">Privacy Policy</a>, and <a href='#'>Cookie Policy</a>.
-                    </TermsCondition>
-                    <SignUpBtn>
-                        Agree &amp; Join
-                    </SignUpBtn>
-                    <VerticleLine>
-                        <span>or</span>
-                    </VerticleLine>
-                    <SignInWithGoogle>
-                        <img src={googleIcon} alt="google Icon" />
-                        <span>Sign in with Google</span>
-                    </SignInWithGoogle>
-                    <AlreadyOnLinkedIn>
-                        Already on LinkedIn? <Link to="/login">Sign in</Link>
-                    </AlreadyOnLinkedIn>
-                </LoginCard>
-            </SignupContainer>
-        </>
-    )
+  return (
+    <>
+      <SignupLoginHeader />
+      <SignupContainer>
+        <h2>Make the most of your professional life</h2>
+        <LoginCard>
+          <Input type="text" placeholder='Email or Phone number' />
+          <InputPassword placeholder="Password" />
+          <TermsCondition>
+            By clicking Agree &amp; Join, you agree to the LinkedIn <a href="#">User Agreement</a>, <a href="#">Privacy Policy</a>, and <a href='#'>Cookie Policy</a>.
+          </TermsCondition>
+          <SignUpBtn>
+            Agree &amp; Join
+          </SignUpBtn>
+          <VerticleLine>
+            <span>or</span>
+          </VerticleLine>
+          <SignInWithGoogle>
+            <img src={googleIcon} alt="google Icon" />
+            <span>Sign in with Google</span>
+          </SignInWithGoogle>
+          <AlreadyOnLinkedIn>
+            Already on LinkedIn? <Link to="/login">Sign in</Link>
+          </AlreadyOnLinkedIn>
+        </LoginCard>
+      </SignupContainer>
+    </>
+  )
 }
 const SignupContainer = styled(Container)`
   min-height: 100vh;
