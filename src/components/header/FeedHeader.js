@@ -105,6 +105,9 @@ const Icon = styled(Link)`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  &:hover > * {
+    color: #000000 !important;
+  }
 `;
 const IconText = styled.span`
   color: gray;
