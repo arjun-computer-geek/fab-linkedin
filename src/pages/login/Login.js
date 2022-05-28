@@ -1,12 +1,12 @@
 import googleIcon from '../../assets/googleIcon.png'
-import Container from '../styled-component/Container'
-import SignupLoginHeader from '../header/SignupLoginHeader'
+import Container from '../../components/styled-component/Container'
+import SignupLoginHeader from '../../components/header/SignupLoginHeader'
 import styled from "styled-components";
-import SignIn from '../styled-component/SignIn'
-import LoginCard from '../styled-component/LoginCard';
-import Input from '../styled-component/Input';
-import InputPassword from '../styled-component/InputPassword';
-import SignInWithGoogle from '../styled-component/SignInWithGoogle'
+import SignIn from '../../components/styled-component/SignIn'
+import LoginCard from '../../components/styled-component/LoginCard';
+import Input from '../../components/styled-component/Input';
+import InputPassword from '../../components/styled-component/InputPassword';
+import SignInWithGoogle from '../../components/styled-component/SignInWithGoogle'
 
 const Login = () => {
 
@@ -24,18 +24,18 @@ const Login = () => {
           <ForgotPassword>
             Forgot Password?
           </ForgotPassword>
-          <SignInBtn>
+          <SignInBtn to='/signup'>
             Sign in
           </SignInBtn>
           <VerticleLine>
             <span>or</span>
           </VerticleLine>
-          <SignInWithGoogle>
+          <SignInWithGoogle to='/google'>
             <img src={googleIcon} alt="google Icon" />
             <span>Sign in with Google</span>
           </SignInWithGoogle>
         </LoginCard>
-      </LoginContainer>
+      </LoginContainer> 
     </>
   )
 }

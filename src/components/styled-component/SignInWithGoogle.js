@@ -4,7 +4,7 @@ import SignIn from "./SignIn";
 const SignInWithGoogle = styled(SignIn)`
    display: block;
   text-align: center;
-  margin-top: 2.5em;
+  margin-top: 3.5em;
   display: flex;
   align-items: center;
   justify-content: space-evenly;

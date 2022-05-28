@@ -1,14 +1,14 @@
 import React from 'react'
 import styled from "styled-components"
 import googleIcon from '../../assets/googleIcon.png'
-import Container from '../styled-component/Container'
-import LoginCard from '../styled-component/LoginCard';
-import SignIn from '../styled-component/SignIn'
-import Input from '../styled-component/Input';
-import SignInWithGoogle from '../styled-component/SignInWithGoogle'
+import Container from '../../components/styled-component/Container'
+import LoginCard from '../../components/styled-component/LoginCard';
+import SignIn from '../../components/styled-component/SignIn'
+import Input from '../../components/styled-component/Input';
+import SignInWithGoogle from '../../components/styled-component/SignInWithGoogle'
 
-import SignupLoginHeader from '../header/SignupLoginHeader'
-import InputPassword from '../styled-component/InputPassword';
+import SignupLoginHeader from '../../components/header/SignupLoginHeader'
+import InputPassword from '../../components/styled-component/InputPassword';
 import { Link } from 'react-router-dom';
 const Signup = () => {
   return (
@@ -22,13 +22,13 @@ const Signup = () => {
           <TermsCondition>
             By clicking Agree &amp; Join, you agree to the LinkedIn <a href="#">User Agreement</a>, <a href="#">Privacy Policy</a>, and <a href='#'>Cookie Policy</a>.
           </TermsCondition>
-          <SignUpBtn>
+          <SignUpBtn to='/login'>
             Agree &amp; Join
           </SignUpBtn>
           <VerticleLine>
             <span>or</span>
           </VerticleLine>
-          <SignInWithGoogle>
+          <SignInWithGoogle to='/google'>
             <img src={googleIcon} alt="google Icon" />
             <span>Sign in with Google</span>
           </SignInWithGoogle>

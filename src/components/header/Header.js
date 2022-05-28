@@ -13,8 +13,8 @@ const Header = () => {
                     <img src={Logo}  alt="Logo"/>
                 </Link>
                 <div>
-                    <Join>Join now</Join>
-                    <SignIn>Sign in</SignIn>
+                    <Join to="/signup">Join now</Join>
+                    <SignIn to='/login'>Sign in</SignIn>
                 </div>
             </Nav>
         </Container>
@@ -39,16 +39,8 @@ const Nav = styled.nav`
     height: 100%;
     width: 100%;
   }
-
-  /* & > a {
-    margin: 1rem 0.5rem;
-
-    @media (max-width: 768px) {
-      padding: 0 5px;
-    }
-  } */
 `;
-const Join = styled.a`
+const Join = styled(Link)`
   font-size: 1.5rem;
   padding: 15px 20px;
   color: rgba(0, 0, 0, 0.6);

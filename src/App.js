@@ -4,9 +4,9 @@ import {
   Routes,
   Route,
 } from 'react-router-dom'
-import Login from "./components/login/Login";
-import Signup from "./components/signup/Signup";
-import Home from "./pages/Home";
+import Home from "./pages/home/Home";
+import Login from "./pages/login/Login";
+import Signup from "./pages/signup/Signup";
 
 const App = () => {
   return (
