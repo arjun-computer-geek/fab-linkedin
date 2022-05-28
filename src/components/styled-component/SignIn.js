@@ -9,7 +9,7 @@ const SignIn = styled(Link)`
   font-weight: 600;
   padding: 15px 20px;
   &:hover{
-    background-color: rgba(112, 181, 249, 0.15)
+    background-color: rgba(112, 181, 249, 0.15);
     
   }
 `
