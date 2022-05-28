@@ -2,10 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "./../../assets/fab-linkedin-logo.png";
-import Container from "./../styled-component/Container";
-import SignIn from "../styled-component/SignIn";
+import { Container, SignIn } from "custom-styled-component";
 
-const Header = () => {
+export const Header = () => {
   return (
     <Container>
       <Nav>
@@ -51,5 +50,3 @@ const Join = styled(Link)`
     color: rgba(0, 0, 0, 0.9);
   }
 `;
-
-export default Header;

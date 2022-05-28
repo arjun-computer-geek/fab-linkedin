@@ -1,10 +1,9 @@
 import React from "react";
+import { Header, Hero } from "components";
 import styled from "styled-components";
-import Header from "../../components/header/Header";
-import Hero from "../../components/hero/Hero";
-import Container from "../../components/styled-component/Container";
+import { Container } from "custom-styled-component";
 
-const Home = () => {
+export const Home = () => {
   return (
     <>
       <Header />
@@ -15,6 +14,3 @@ const Home = () => {
   );
 };
 const LandingPageContainer = styled(Container)``;
-
-
-export default Home;

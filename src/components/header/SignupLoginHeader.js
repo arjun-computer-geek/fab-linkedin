@@ -2,19 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "./../../assets/fab-linkedin-logo.png";
-import Container from "./../styled-component/Container"
+import { Container } from "custom-styled-component";
 
-const SignupLoginHeader = () => {
-    return (
-        <Container>
-            <Nav>
-                <Link to="/">
-                    <img src={Logo} alt="Logo" />
-                </Link>
-            </Nav>
-        </Container>
-    )
-}
+export const SignupLoginHeader = () => {
+  return (
+    <Container>
+      <Nav>
+        <Link to="/">
+          <img src={Logo} alt="Logo" />
+        </Link>
+      </Nav>
+    </Container>
+  );
+};
 const Nav = styled.nav`
   padding: 1rem 0;
   width: 100%;
@@ -24,14 +24,12 @@ const Nav = styled.nav`
   justify-content: space-between;
   flex-wrap: nowrap;
 
-  & > a:first-child{
+  & > a:first-child {
     height: 100%;
     width: 20%;
   }
-  & > a:first-child > img{
+  & > a:first-child > img {
     height: 100%;
     width: 100%;
   }
 `;
-
-export default SignupLoginHeader

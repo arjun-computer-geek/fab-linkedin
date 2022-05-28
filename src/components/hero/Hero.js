@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Hero = () => {
+export const Hero = () => {
   return (
     <HeroSection>
       <HeroText>Welcome to your professional community</HeroText>
@@ -33,7 +33,5 @@ const HeroText = styled.div`
   width: 50%;
   color: #8c5546;
   font-size: 5rem;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 `;
-
-export default Hero;

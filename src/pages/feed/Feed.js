@@ -1,7 +1,7 @@
+import { FeedHeader } from "components";
 import React from "react";
-import FeedHeader from "../../components/header/FeedHeader";
 
-const Feed = () => {
+export const Feed = () => {
   return (
     <>
       <FeedHeader />
@@ -9,5 +9,3 @@ const Feed = () => {
     </>
   );
 };
-
-export default Feed;

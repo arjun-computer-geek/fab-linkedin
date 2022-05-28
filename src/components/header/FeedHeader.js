@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "./../../assets/logo.png";
-import Container from "./../styled-component/Container";
+import {Container} from "custom-styled-component";
 import searchIcon from "../../assets/search.png";
 import { Home } from "@styled-icons/boxicons-solid/Home";
 import { People } from "@styled-icons/ionicons-sharp/People";
@@ -11,7 +11,7 @@ import { Notifications } from "@styled-icons/material-rounded/Notifications";
 import { UserCircle } from "@styled-icons/boxicons-solid/UserCircle";
 import {CaretDown} from "@styled-icons/ionicons-sharp/CaretDown"
 
-const FeedHeader = () => {
+export const FeedHeader = () => {
   return (
     <Container>
       <Nav>
@@ -127,4 +127,3 @@ const Icon = styled.div`
 const IconText = styled.span`
   color: gray;
 `;
-export default FeedHeader;
