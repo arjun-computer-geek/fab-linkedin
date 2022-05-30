@@ -1,3 +1,4 @@
+export{ ButtonWithIcon } from "./ButtonWithIcon";
 export { Container } from "./Container";
 export { GlobalStyles } from "./GlobalStyles";
 export { Input } from "./Input";

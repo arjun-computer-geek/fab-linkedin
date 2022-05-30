@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { FeedHeader, LeftSideCard } from "components";
 import { Container } from "custom-styled-component";
+import { CreatePost } from "components";
 
 export const Feed = () => {
   return (
@@ -9,7 +10,9 @@ export const Feed = () => {
       <FeedHeader />
       <FeedPage>
         <LeftSideCard />
-        <div>Main</div>
+        <Main>
+          <CreatePost />
+        </Main>
         <div>Right Side</div>
       </FeedPage>
     </>
@@ -24,4 +27,8 @@ const FeedPage = styled(Container)`
   grid-template-columns: minmax(0, 5fr) minmax(0, 12fr) minmax(300px, 7fr);
   gap: 25px;
   padding-top: 25px;
+`;
+
+const Main = styled.main`
+  /* background-color: red */
 `;
