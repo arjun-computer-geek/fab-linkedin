@@ -61,7 +61,9 @@ const Nav = styled.nav`
   align-items: center;
   justify-content: space-between;
   flex-wrap: nowrap;
-
+  position: sticky;
+  top: 0;
+  left: 0;
   & > a:first-child {
     height: 100%;
     width: 3%;

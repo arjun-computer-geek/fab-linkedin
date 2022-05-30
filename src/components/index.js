@@ -1,3 +1,4 @@
+export { RightSideCard } from './cards/RightSideCard'
 export { CreatePost } from './post/CreatePost'
 export {Header} from './header/Header'
 export {FeedHeader} from './header/FeedHeader'

@@ -15,7 +15,7 @@ const Button = styled.button`
   border-radius: 5px;
   background-color: transparent;
   height: 4rem;
-  /* min-width: 8rem; */
+  min-width: 8rem;
   white-space: nowrap;
   width: fit-content;
   padding: 0.5rem;

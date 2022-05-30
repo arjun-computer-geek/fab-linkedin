@@ -1,8 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { FeedHeader, LeftSideCard } from "components";
+import {
+  FeedHeader,
+  CreatePost,
+  LeftSideCard,
+  RightSideCard,
+} from "components";
 import { Container } from "custom-styled-component";
-import { CreatePost } from "components";
 
 export const Feed = () => {
   return (
@@ -13,7 +17,7 @@ export const Feed = () => {
         <Main>
           <CreatePost />
         </Main>
-        <div>Right Side</div>
+        <RightSideCard />
       </FeedPage>
     </>
   );
@@ -30,5 +34,6 @@ const FeedPage = styled(Container)`
 `;
 
 const Main = styled.main`
-  /* background-color: red */
+  min-height: 100vh;
+  height: fit-content;
 `;
