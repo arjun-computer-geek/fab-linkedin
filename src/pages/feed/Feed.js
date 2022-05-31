@@ -5,6 +5,7 @@ import {
   CreatePost,
   LeftSideCard,
   RightSideCard,
+  Post,
 } from "components";
 import { Container } from "custom-styled-component";
 
@@ -16,6 +17,11 @@ export const Feed = () => {
         <LeftSideCard />
         <Main>
           <CreatePost />
+          <Post />
+          <Post />
+          <Post />
+          <Post />
+          <Post />
         </Main>
         <RightSideCard />
       </FeedPage>

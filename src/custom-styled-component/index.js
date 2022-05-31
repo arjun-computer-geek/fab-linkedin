@@ -1,3 +1,4 @@
+export { Avatar } from "./Avatar";
 export{ ButtonWithIcon } from "./ButtonWithIcon";
 export { Container } from "./Container";
 export { GlobalStyles } from "./GlobalStyles";

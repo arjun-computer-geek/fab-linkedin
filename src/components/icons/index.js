@@ -5,6 +5,8 @@ import { MessageSquare } from "@styled-icons/evaicons-solid/MessageSquare";
 import { Notifications } from "@styled-icons/material-rounded/Notifications";
 import { UserCircle } from "@styled-icons/boxicons-solid/UserCircle";
 import { CaretDown } from "@styled-icons/ionicons-sharp/CaretDown";
+import { ThreeDots } from "@styled-icons/bootstrap/ThreeDots";
+import { Plus } from "styled-icons/boxicons-regular";
 
 export const DownIcon = styled(CaretDown)`
   height: 1rem !important;
@@ -28,4 +30,17 @@ export const NotificationIcon = styled(Notifications)`
 export const UserIcon = styled(UserCircle)`
   height: 2rem !important;
   color: gray;
+`;
+export const ThreeDotsIcon = styled(ThreeDots)`
+  height: 2rem !important;
+  color: gray;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+`;
+export const PlusIcon = styled(Plus)`
+  height: 2rem !important;
+  color: red;
 `;

@@ -1,4 +1,4 @@
-import { ButtonWithIcon, Input } from "custom-styled-component";
+import { ButtonWithIcon, Input, Avatar } from "custom-styled-component";
 import React from "react";
 import styled from "styled-components";
 import CameraIcon from "../../assets/camera.png";
@@ -33,15 +33,6 @@ const CreatePostContainer = styled.div`
   padding: 1rem;
   justify-content: space-around;
   align-items: center;
-`;
-const Avatar = styled.div`
-  height: 4rem;
-  width: 4rem;
-  border-radius: 50%;
-  img {
-    height: 100%;
-    width: 100%;
-  }
 `;
 const PostInput = styled(Input)`
   /* flex-grow: 2; */

@@ -1,3 +1,4 @@
+export { Post } from './post/Post'
 export { RightSideCard } from './cards/RightSideCard'
 export { CreatePost } from './post/CreatePost'
 export {Header} from './header/Header'
