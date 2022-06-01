@@ -2,25 +2,23 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "./../../assets/fab-linkedin-logo.png";
-import Container from "./../styled-component/Container"
-import SignIn from '../styled-component/SignIn'
+import { Container, SignIn } from "custom-styled-component";
 
-const Header = () => {
-    return (
-        <Container>
-            <Nav>
-                <Link to="/">
-                    <img src={Logo}  alt="Logo"/>
-                </Link>
-                <div>
-                    <Join to="/signup">Join now</Join>
-                    <SignIn to='/login'>Sign in</SignIn>
-                </div>
-            </Nav>
-        </Container>
-    );
+export const Header = () => {
+  return (
+    <Container>
+      <Nav>
+        <Link to="/">
+          <img src={Logo} alt="Logo" />
+        </Link>
+        <div>
+          <Join to="/signup">Join now</Join>
+          <SignIn to="/login">Sign in</SignIn>
+        </div>
+      </Nav>
+    </Container>
+  );
 };
-
 
 const Nav = styled.nav`
   padding: 1rem 0;
@@ -31,11 +29,11 @@ const Nav = styled.nav`
   justify-content: space-between;
   flex-wrap: nowrap;
 
-  & > a:first-child{
+  & > a:first-child {
     height: 100%;
     width: 20%;
   }
-  & > a:first-child > img{
+  & > a:first-child > img {
     height: 100%;
     width: 100%;
   }
@@ -47,11 +45,8 @@ const Join = styled(Link)`
   margin-right: 12px;
   border-radius: 5px;
   font-weight: 600;
-  &:hover{
+  &:hover {
     background-color: rgba(0, 0, 0, 0.08);
     color: rgba(0, 0, 0, 0.9);
   }
 `;
-
-
-export default Header;
