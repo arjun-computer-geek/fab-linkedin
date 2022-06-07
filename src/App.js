@@ -3,6 +3,7 @@ import { Feed, Home, Login, Signup } from "pages";
 import { GlobalStyles } from "custom-styled-component";
 
 const App = () => {
+
   return (
     <>
       <Router>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -12,22 +12,48 @@ import {
   InputPassword,
 } from "custom-styled-component";
 import { SignupLoginHeader } from "components";
+import { singupWithEmailAndPassword } from "../../redux/slices/authSlice";
+import { useDispatch } from "react-redux";
 
 export const Signup = () => {
+  const [user, setUser] = useState({ email: "", password: "" });
+  const dispatch = useDispatch();
+
+  const emailChangeHandler = (e) => {
+    setUser((prev) => ({ ...prev, email: e.target.value }));
+  };
+
+  const passwordChangeHandler = (e) => {
+    setUser((prev) => ({ ...prev, password: e.target.value }));
+  };
+
+  const signupHandler = (e, userData) => {
+    e.preventDefault();
+    dispatch(singupWithEmailAndPassword(userData));
+  };
   return (
     <>
       <SignupLoginHeader />
       <SignupContainer>
         <h2>Make the most of your professional life</h2>
         <LoginCard>
-          <Input type="text" placeholder="Email or Phone number" />
-          <InputPassword placeholder="Password" />
+          <Input
+            onChange={emailChangeHandler}
+            type="text"
+            placeholder="Email or Phone number"
+          />
+          <InputPassword
+            onChange={passwordChangeHandler}
+            placeholder="Password"
+          />
           <TermsCondition>
             By clicking Agree &amp; Join, you agree to the LinkedIn{" "}
             <a href="#">User Agreement</a>, <a href="#">Privacy Policy</a>, and{" "}
             <a href="#">Cookie Policy</a>.
           </TermsCondition>
-          <SignUpBtn to="/login">Agree &amp; Join</SignUpBtn>
+          <SignUpBtn onClick={(e) => signupHandler(e, user)} to="/login">
+            Agree &amp; Join
+          </SignUpBtn>
           <VerticleLine>
             <span>or</span>
           </VerticleLine>

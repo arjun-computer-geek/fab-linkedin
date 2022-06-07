@@ -2,7 +2,7 @@ import { Input } from "custom-styled-component";
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 
-export const InputPassword = ({ placeholder }) => {
+export const InputPassword = ({ placeholder, onChange }) => {
   const [visible, setVisible] = useState(false);
   const passwordRef = useRef(null);
 
@@ -14,7 +14,12 @@ export const InputPassword = ({ placeholder }) => {
   };
   return (
     <PasswordWrapper>
-      <Input type="password" ref={passwordRef} placeholder={placeholder} />
+      <Input
+        type="password"
+        onChange={onChange}
+        ref={passwordRef}
+        placeholder={placeholder}
+      />
       <HideShow onClick={hideShowPasswordHandler}>
         {visible ? "hide" : "show"}
       </HideShow>
