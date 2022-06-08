@@ -14,10 +14,12 @@ import {
 import { SignupLoginHeader } from "components";
 import { singupWithEmailAndPassword } from "../../redux/slices/authSlice";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export const Signup = () => {
   const [user, setUser] = useState({ email: "", password: "" });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const emailChangeHandler = (e) => {
     setUser((prev) => ({ ...prev, email: e.target.value }));
@@ -30,6 +32,7 @@ export const Signup = () => {
   const signupHandler = (e, userData) => {
     e.preventDefault();
     dispatch(singupWithEmailAndPassword(userData));
+    navigate("/feed");
   };
   return (
     <>

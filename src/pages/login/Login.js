@@ -4,6 +4,7 @@ import { SignupLoginHeader } from "components";
 import { useState } from "react";
 import { loginWithEmailAndPassword } from "../../redux/slices/authSlice";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   SignIn,
@@ -16,6 +17,7 @@ import {
 export const Login = () => {
   const [user, setUser] = useState({ email: "", password: "" });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const emailChangeHandler = (e) => {
     setUser((prev) => ({ ...prev, email: e.target.value }));
@@ -28,6 +30,7 @@ export const Login = () => {
   const loginHandler = (e, userData) => {
     e.preventDefault();
     dispatch(loginWithEmailAndPassword(userData));
+    navigate("/feed");
   };
   return (
     <>
