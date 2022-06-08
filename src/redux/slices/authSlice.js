@@ -2,34 +2,31 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import { auth } from "utils";
 
 export const loginWithEmailAndPassword = createAsyncThunk(
   "auth/loginWithEmailAndPassword",
   async (userData) => {
-    try {
-      await signInWithEmailAndPassword(auth, userData.email, userData.password);
-    } catch (error) {
-      console.log(error);
-    }
+    await signInWithEmailAndPassword(auth, userData.email, userData.password);
   }
 );
 
 export const singupWithEmailAndPassword = createAsyncThunk(
   "auth/signupWithEmailAndPassword",
   async (userData) => {
-    try {
-      await createUserWithEmailAndPassword(
-        auth,
-        userData.email,
-        userData.password
-      );
-    } catch (error) {
-      console.log(error);
-    }
+    await createUserWithEmailAndPassword(
+      auth,
+      userData.email,
+      userData.password
+    );
   }
 );
+
+export const logout = createAsyncThunk("auth/logout", async () => {
+  await signOut(auth);
+});
 
 const authSlice = createSlice({
   name: "auth",
@@ -56,7 +53,7 @@ const authSlice = createSlice({
     [loginWithEmailAndPassword.rejected]: (state, action) => {
       state.currentUser = null;
       state.loading = true;
-      state.error = action.payload;
+      state.error = action.error.message;
     },
     [singupWithEmailAndPassword.pending]: (state) => {
       state.currentUser = null;
@@ -70,7 +67,20 @@ const authSlice = createSlice({
     [singupWithEmailAndPassword.rejected]: (state, action) => {
       state.currentUser = null;
       state.loading = true;
-      state.error = action.payload;
+      state.error = action.error.message;
+    },
+    [logout.pending]: (state) => {
+      state.loading = true; 
+      state.error = null;
+    },
+    [logout.fulfilled]: (state) => {
+      state.currentUser = null;
+      state.loading = false;
+      state.error = null;
+    },
+    [logout.error]: (state, action) => {
+      state.loading = true;
+      state.error = action.error.message;
     },
   },
 });
