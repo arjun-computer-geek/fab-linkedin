@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 import {
   FeedHeader,
   CreatePost,
@@ -10,6 +11,8 @@ import {
 import { Container } from "custom-styled-component";
 
 export const Feed = () => {
+  const authData = useSelector((state) => state.auth);
+  console.log(authData);
   return (
     <>
       <FeedHeader />

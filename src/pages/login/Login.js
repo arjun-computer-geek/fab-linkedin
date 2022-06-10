@@ -1,4 +1,12 @@
 import googleIcon from "../../assets/googleIcon.png";
+import styled from "styled-components";
+import { SignupLoginHeader } from "components";
+import { useEffect, useState } from "react";
+import { loginWithEmailAndPassword } from "../../redux/slices/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { clearError } from "redux/slices/authSlice";
 import {
   Container,
   SignIn,
@@ -7,10 +15,37 @@ import {
   InputPassword,
   SignInWithGoogle,
 } from "custom-styled-component";
-import styled from "styled-components";
-import { SignupLoginHeader } from "components";
 
 export const Login = () => {
+  const [user, setUser] = useState({ email: "", password: "" });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { error, loading, isAuthenticated } = useSelector(
+    (state) => state.auth
+  );
+  useEffect(() => {
+    if (isAuthenticated) {
+      toast.success("Loggedin successfull 😉");
+      navigate("/feed");
+    }
+    if (error) toast.error(error);
+    dispatch(clearError());
+  }, [dispatch, error, isAuthenticated]);
+
+  const emailChangeHandler = (e) => {
+    setUser((prev) => ({ ...prev, email: e.target.value }));
+  };
+
+  const passwordChangeHandler = (e) => {
+    setUser((prev) => ({ ...prev, password: e.target.value }));
+  };
+
+  const loginHandler = (e, userData) => {
+    e.preventDefault();
+    dispatch(loginWithEmailAndPassword(userData));
+  };
+
   return (
     <>
       <SignupLoginHeader />
@@ -18,10 +53,19 @@ export const Login = () => {
         <LoginCard>
           <LoginHeader>Sign in</LoginHeader>
           <Quote>Stay updated on your professional world</Quote>
-          <Input type="text" placeholder="Email or Phone" />
-          <InputPassword placeholder="Password" />
+          <Input
+            onChange={emailChangeHandler}
+            type="text"
+            placeholder="Email or Phone"
+          />
+          <InputPassword
+            onChange={passwordChangeHandler}
+            placeholder="Password"
+          />
           <ForgotPassword>Forgot Password?</ForgotPassword>
-          <SignInBtn to="/signup">Sign in</SignInBtn>
+          <SignInBtn onClick={(e) => loginHandler(e, user)} to="/signup">
+            Sign in
+          </SignInBtn>
           <VerticleLine>
             <span>or</span>
           </VerticleLine>
