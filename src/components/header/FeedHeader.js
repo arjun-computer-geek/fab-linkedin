@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Logo from "./../../assets/logo.png";
 import { Container } from "custom-styled-component";
 import searchIcon from "../../assets/search.png";
+import { useSelector } from "react-redux";
 import {
   DownIcon,
   HomeIcon,
@@ -14,18 +15,26 @@ import {
 } from "components/icons";
 
 export const FeedHeader = () => {
+  const { currentUser } = useSelector((state) => state.auth);
   return (
     <Container>
       <Nav>
-        <Link to="/">
-          <img src={Logo} alt="Logo" />
-        </Link>
+        {currentUser ? (
+          <Link to="/feed">
+            <img src={Logo} alt="Logo" />
+          </Link>
+        ) : (
+          <Link to="/">
+            <img src={Logo} alt="Logo" />
+          </Link>
+        )}
+
         <Search>
           <img src={searchIcon} alt="search icon" />
           <input placeholder="Search" />
         </Search>
         <IconContainer>
-          <Icon to="/home">
+          <Icon to="/feed">
             <HomeIcon />
             <IconText>Home</IconText>
           </Icon>

@@ -12,7 +12,7 @@ import { Container } from "custom-styled-component";
 
 export const Feed = () => {
   const authData = useSelector((state) => state.auth);
-  console.log(authData);
+  console.log(authData)
   return (
     <>
       <FeedHeader />

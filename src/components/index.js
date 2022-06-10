@@ -1,3 +1,6 @@
+export { ProtectedRoute } from './route/ProtectedRoute'
+export { RedirectToHome } from './route/RedirectToHome'
+export { RedirectToFeed } from './route/RedirectToFeed'
 export { Post } from './post/Post'
 export { RightSideCard } from './cards/RightSideCard'
 export { CreatePost } from './post/CreatePost'
