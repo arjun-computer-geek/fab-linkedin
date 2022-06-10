@@ -34,10 +34,15 @@ const authSlice = createSlice({
     currentUser: null,
     loading: false,
     error: null,
+    isAuthenticated: false,
   },
+
   reducers: {
     setCurrentUser: (state, action) => {
       state.currentUser = action.payload;
+    },
+    clearError: (state) => {
+      state.error = null;
     },
   },
   extraReducers: {
@@ -45,44 +50,53 @@ const authSlice = createSlice({
       state.currentUser = null;
       state.loading = true;
       state.error = null;
+      state.isAuthenticated = false;
     },
     [loginWithEmailAndPassword.fulfilled]: (state) => {
       state.loading = false;
       state.error = null;
+      state.isAuthenticated = true;
     },
     [loginWithEmailAndPassword.rejected]: (state, action) => {
       state.currentUser = null;
       state.loading = true;
       state.error = action.error.message;
+      state.isAuthenticated = false;
     },
     [singupWithEmailAndPassword.pending]: (state) => {
       state.currentUser = null;
       state.loading = true;
       state.error = null;
+      state.isAuthenticated = false;
     },
     [singupWithEmailAndPassword.fulfilled]: (state) => {
       state.loading = false;
       state.error = null;
+      state.isAuthenticated = true;
     },
     [singupWithEmailAndPassword.rejected]: (state, action) => {
       state.currentUser = null;
       state.loading = true;
       state.error = action.error.message;
+      state.isAuthenticated = false;
     },
     [logout.pending]: (state) => {
-      state.loading = true; 
+      state.loading = true;
       state.error = null;
+      state.isAuthenticated = true;
     },
     [logout.fulfilled]: (state) => {
       state.currentUser = null;
       state.loading = false;
       state.error = null;
+      state.isAuthenticated = false;
     },
     [logout.error]: (state, action) => {
       state.loading = true;
       state.error = action.error.message;
+      state.isAuthenticated = true;
     },
   },
 });
-export const { setCurrentUser } = authSlice.actions;
+export const { setCurrentUser, clearError } = authSlice.actions;
 export default authSlice.reducer;

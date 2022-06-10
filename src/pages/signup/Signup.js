@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import googleIcon from "../../assets/googleIcon.png";
 import {
@@ -13,13 +14,27 @@ import {
 } from "custom-styled-component";
 import { SignupLoginHeader } from "components";
 import { singupWithEmailAndPassword } from "../../redux/slices/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { clearError } from "redux/slices/authSlice";
 
 export const Signup = () => {
   const [user, setUser] = useState({ email: "", password: "" });
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { error, loading, isAuthenticated } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      toast.success("Register successfull 😉");
+      navigate("/feed");
+    }
+    if (error) toast.error(error);
+    dispatch(clearError());
+  }, [dispatch, error, isAuthenticated]);
 
   const emailChangeHandler = (e) => {
     setUser((prev) => ({ ...prev, email: e.target.value }));

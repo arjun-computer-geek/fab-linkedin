@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { auth } from "utils";
 import { setCurrentUser } from "redux/slices/authSlice";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -24,6 +26,18 @@ const App = () => {
   });
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      <ToastContainer />
       <BrowserRouter>
         <GlobalStyles />
         <Routes>

@@ -1,10 +1,12 @@
 import googleIcon from "../../assets/googleIcon.png";
 import styled from "styled-components";
 import { SignupLoginHeader } from "components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { loginWithEmailAndPassword } from "../../redux/slices/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { clearError } from "redux/slices/authSlice";
 import {
   Container,
   SignIn,
@@ -19,6 +21,18 @@ export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const { error, loading, isAuthenticated } = useSelector(
+    (state) => state.auth
+  );
+  useEffect(() => {
+    if (isAuthenticated) {
+      toast.success("Loggedin successfull 😉");
+      navigate("/feed");
+    }
+    if (error) toast.error(error);
+    dispatch(clearError());
+  }, [dispatch, error, isAuthenticated]);
+
   const emailChangeHandler = (e) => {
     setUser((prev) => ({ ...prev, email: e.target.value }));
   };
@@ -30,8 +44,8 @@ export const Login = () => {
   const loginHandler = (e, userData) => {
     e.preventDefault();
     dispatch(loginWithEmailAndPassword(userData));
-    navigate("/feed");
   };
+
   return (
     <>
       <SignupLoginHeader />
