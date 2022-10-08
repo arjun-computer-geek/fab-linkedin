@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import {
@@ -9,10 +9,20 @@ import {
   Post,
 } from "components";
 import { Container } from "custom-styled-component";
+import { useNavigate } from "react-router-dom";
 
 export const Feed = () => {
+  const { isAuthenticated } = useSelector(state => state.auth)
   const authData = useSelector((state) => state.auth);
+  const navigate = useNavigate()
   console.log(authData);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/")
+    }
+  })
+
   return (
     <>
       <FeedHeader />

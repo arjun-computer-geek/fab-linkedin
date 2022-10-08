@@ -2,7 +2,7 @@ import googleIcon from "../../assets/googleIcon.png";
 import styled from "styled-components";
 import { SignupLoginHeader } from "components";
 import { useEffect, useState } from "react";
-import { loginWithEmailAndPassword } from "../../redux/slices/authSlice";
+import { loginWithEmailAndPassword, setError } from "../../redux/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -29,21 +29,57 @@ export const Login = () => {
       toast.success("Loggedin successfull 😉");
       navigate("/feed");
     }
-    if (error) toast.error(error);
-    dispatch(clearError());
+
+    if (error) {
+      toast.error(error);
+      dispatch(clearError());
+    }
   }, [dispatch, error, isAuthenticated]);
 
+
+  const validateEmail = (email) => {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.toLowerCase())) {
+      return true
+    }
+    return false
+  };
+
+
+  const checkEmailOrPassword = (inputData) => {
+    let input = String(inputData)
+    if (input === null || input === '') return
+    
+    if (input.length > 10) {
+      if (validateEmail(input)) {
+        return 'email'
+      }
+      
+    }
+    if (input.length === 10) {
+      return 'phone'
+    }
+    
+  }
+  
   const emailChangeHandler = (e) => {
     setUser((prev) => ({ ...prev, email: e.target.value }));
   };
-
+  
   const passwordChangeHandler = (e) => {
     setUser((prev) => ({ ...prev, password: e.target.value }));
   };
-
+  
   const loginHandler = (e, userData) => {
     e.preventDefault();
-    dispatch(loginWithEmailAndPassword(userData));
+    if (checkEmailOrPassword(user?.email) === 'email') {
+      return dispatch(loginWithEmailAndPassword(userData));
+    }
+    
+    if(checkEmailOrPassword(user?.email) === 'phone'){
+      return console.log('login with phone')
+    }
+
+    return dispatch(setError('Invalid Email or Phone Number'))
   };
 
   return (
