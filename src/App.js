@@ -7,23 +7,22 @@ import { auth } from "utils";
 import { setCurrentUser } from "redux/slices/authSlice";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {onAuthStateChanged}from 'firebase/auth'
 
 const App = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) =>
-      dispatch(
-        setCurrentUser({
-          displayName: user?.displayName,
-          email: user?.email,
-          emailVerified: user?.emailVerified,
-          phoneNumber: user?.phoneNumber,
-          photoUrl: user?.photoURL,
-        })
-      )
-    );
-    return unsubscribe;
-  });
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged((currentUser) =>
+  //     dispatch(
+  //       setCurrentUser(currentUser)
+  //     )
+  //   );
+  //   return unsubscribe;
+  // });
+
+  auth.onAuthStateChanged(currentUser => {
+    dispatch(setCurrentUser(currentUser))
+  })
   return (
     <>
       <ToastContainer

@@ -1,13 +1,31 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "redux/slices/authSlice";
+import { clearError, logout } from "redux/slices/authSlice";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Profile = () => {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state) => state.auth);
+  const { currentUser, isAuthenticated, error } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(!isAuthenticated){
+      navigate("/");
+    }
+    
+    if (error) {
+      toast.error(error)
+      dispatch(clearError());
+    };
+    
+  },[error,  isAuthenticated])
+  
   const logoutHandler = () => {
     dispatch(logout());
+    toast.success("Logout successfull 😉");
   };
+  
 
   return (
     <div>

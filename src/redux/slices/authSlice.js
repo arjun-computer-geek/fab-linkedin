@@ -10,17 +10,21 @@ export const loginWithEmailAndPassword = createAsyncThunk(
   "auth/loginWithEmailAndPassword",
   async (userData) => {
     await signInWithEmailAndPassword(auth, userData.email, userData.password);
+    
   }
 );
 
 export const singupWithEmailAndPassword = createAsyncThunk(
   "auth/signupWithEmailAndPassword",
   async (userData) => {
-    await createUserWithEmailAndPassword(
-      auth,
-      userData.email,
-      userData.password
-    );
+    
+      const res = await createUserWithEmailAndPassword(
+        auth,
+        userData.email,
+        userData.password
+      );
+      console.log(res)
+    
   }
 );
 
@@ -43,6 +47,10 @@ const authSlice = createSlice({
     },
     clearError: (state) => {
       state.error = null;
+    },
+    setError: (state, action) => {
+      
+      state.error = action.payload
     },
   },
   extraReducers: {
@@ -98,5 +106,5 @@ const authSlice = createSlice({
     },
   },
 });
-export const { setCurrentUser, clearError } = authSlice.actions;
+export const { setCurrentUser, clearError, setError } = authSlice.actions;
 export default authSlice.reducer;
