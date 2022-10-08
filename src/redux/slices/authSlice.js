@@ -4,27 +4,43 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+import {
+  addDoc, collection
+} from 'firebase/firestore'
 import { auth } from "utils";
+import { db } from "utils/init-firebase";
 
 export const loginWithEmailAndPassword = createAsyncThunk(
   "auth/loginWithEmailAndPassword",
   async (userData) => {
     await signInWithEmailAndPassword(auth, userData.email, userData.password);
-    
+
   }
 );
 
 export const singupWithEmailAndPassword = createAsyncThunk(
   "auth/signupWithEmailAndPassword",
   async (userData) => {
-    
-      const res = await createUserWithEmailAndPassword(
-        auth,
-        userData.email,
-        userData.password
-      );
-      console.log(res)
-    
+
+    const { user } = await createUserWithEmailAndPassword(
+      auth,
+      userData.email,
+      userData.password
+    );
+    await addDoc(collection(db, 'user'), {
+      uid: user.uid,
+      backgroundPhoto: "",
+      description: "",
+      email: user.email,
+      links: [{
+        link: "",
+        linkText: ""
+      }],
+      name: "",
+      phone: "",
+      profilePhoto: ""
+
+    })
   }
 );
 
@@ -49,7 +65,7 @@ const authSlice = createSlice({
       state.error = null;
     },
     setError: (state, action) => {
-      
+
       state.error = action.payload
     },
   },
