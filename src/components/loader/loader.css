@@ -1,0 +1,15 @@
+.circle{
+    margin: 12.5rem auto;
+    width: 4rem;
+    height: 4rem;
+    border: 0.35rem solid #ffff;
+    border-radius: 50%;
+    border-top-color: #0a66c2;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin{
+    100%{
+        transform: rotate(360deg);
+    }
+}

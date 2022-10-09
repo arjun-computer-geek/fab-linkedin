@@ -2,23 +2,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Feed, Home, Login, Profile, Signup } from "pages";
 import { GlobalStyles } from "custom-styled-component";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 import { auth } from "utils";
 import { setCurrentUser } from "redux/slices/authSlice";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {onAuthStateChanged}from 'firebase/auth'
 
 const App = () => {
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged((currentUser) =>
-  //     dispatch(
-  //       setCurrentUser(currentUser)
-  //     )
-  //   );
-  //   return unsubscribe;
-  // });
 
   auth.onAuthStateChanged(currentUser => {
     dispatch(setCurrentUser(currentUser))

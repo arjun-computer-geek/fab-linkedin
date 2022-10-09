@@ -6,20 +6,20 @@ import { useNavigate } from "react-router-dom";
 
 export const Profile = () => {
   const dispatch = useDispatch();
-  const { currentUser, isAuthenticated, error } = useSelector((state) => state.auth);
+  const { currentUser,  error } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(!isAuthenticated){
-      navigate("/");
-    }
+    // if(!currentUser){
+    //   return navigate("/");
+    // }
     
     if (error) {
       toast.error(error)
-      dispatch(clearError());
+      return dispatch(clearError());
     };
     
-  },[error,  isAuthenticated])
+  },[error,  currentUser])
   
   const logoutHandler = () => {
     dispatch(logout());

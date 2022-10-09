@@ -27,7 +27,7 @@ export const singupWithEmailAndPassword = createAsyncThunk(
       userData.email,
       userData.password
     );
-    await addDoc(collection(db, 'user'), {
+    await addDoc(collection(db, 'users'), {
       uid: user.uid,
       backgroundPhoto: "",
       description: "",
