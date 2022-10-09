@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import {
@@ -6,30 +6,33 @@ import {
   CreatePost,
   LeftSideCard,
   RightSideCard,
-  Post,
+  CreatePostModal,
+  Post
 } from "components";
 import { Container } from "custom-styled-component";
 import { useNavigate } from "react-router-dom";
 
 export const Feed = () => {
-  const { isAuthenticated } = useSelector(state => state.auth)
+  const [isOpen, setIsOpen] = useState(false);
+  const {  currentUser } = useSelector(state => state.auth)
   const authData = useSelector((state) => state.auth);
   const navigate = useNavigate()
+
   console.log(authData);
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/")
-    }
-  })
-
+  // useEffect(() => {
+  //   if (!currentUser) {
+  //     navigate("/")
+  //   }
+  // },[currentUser])
   return (
     <>
       <FeedHeader />
+      <CreatePostModal isOpen={isOpen} setIsOpen={setIsOpen}/>
       <FeedPage>
         <LeftSideCard />
         <Main>
-          <CreatePost />
+          <CreatePost isOpen={isOpen} setIsOpen={setIsOpen}/>
           <Post />
           <Post />
           <Post />

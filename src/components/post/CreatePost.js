@@ -7,13 +7,13 @@ import VideoIcon from "../../assets/video.png";
 import EventIcon from "../../assets/event.png";
 import ArticleIcon from "../../assets/article.png";
 
-export const CreatePost = () => {
+export const CreatePost = ({isOpen, setIsOpen}) => {
   return (
     <CreatePostContainer>
       <Avatar>
         <img src={CameraIcon} alt="profile-pic" />
       </Avatar>
-      <PostInput type="button" value="Ask your network for advice" />
+      <PostInput onClick={() => setIsOpen(true)} type="button" value="Ask your network for advice" />
       <ButtonWithIcon icon={PhotoIcon}>Photo</ButtonWithIcon>
       <ButtonWithIcon icon={VideoIcon}>Video</ButtonWithIcon>
       <ButtonWithIcon icon={EventIcon}>Event</ButtonWithIcon>
