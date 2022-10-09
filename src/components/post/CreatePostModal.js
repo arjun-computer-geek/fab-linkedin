@@ -10,16 +10,15 @@ import { createPost } from "redux/slices/postSlice";
 import { storage } from 'utils/init-firebase';
 import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage';
 import { v4 as uuid } from 'uuid'
-import { useNavigate } from "react-router-dom";
 
 export const CreatePostModal = ({ isOpen, setIsOpen }) => {
   const [file, setFile] = useState()
   const [isConfirmdUpload, setIsConfirmUpload] = useState(false)
   const [imgLink, setImgLink] = useState('')
   const [photoPreview, setPhotoPreview] = useState();
-  
+  const [progress, setProgress] = useState(0);
+
   const contentRef = useRef()
-  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const uploadFile = async () => {
@@ -28,9 +27,14 @@ export const CreatePostModal = ({ isOpen, setIsOpen }) => {
     const imgRef = ref(storage, `postPhotos/${file.name + uuid()}`)
     const uploadTask = uploadBytesResumable(imgRef, file);
 
-    uploadTask.on('state_changed', null, null, async () => {
+    uploadTask.on('state_changed', snapshot => {
+      const percent = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      setProgress(percent);
+    }, null, async () => {
+
       const res = await getDownloadURL(uploadTask.snapshot.ref)
       setImgLink(res)
+      setIsConfirmUpload(false)
     })
   }
 
@@ -46,7 +50,6 @@ export const CreatePostModal = ({ isOpen, setIsOpen }) => {
     dispatch(createPost({ content: contentRef.current.innerText, postPhoto: imgLink }))
     setIsOpen(false)
     contentRef.current.innerText = ""
-    navigate('/feed')
   }
   const fileChangeHandler = (e) => {
     setFile(e.target.files[0])
@@ -86,7 +89,10 @@ export const CreatePostModal = ({ isOpen, setIsOpen }) => {
           </UploadFileButton>
           <ButtonAsIcon src={VideoIcon} />
           <ButtonAsIcon src={DocumentIcon} />
-          <PostBtn onClick={createPostHandler}>Post</PostBtn>
+          <PostBtn progress={progress} disabled={isConfirmdUpload} onClick={createPostHandler}>
+            <div></div>
+            <span>{progress < 100 && progress > 0 ? "Uploading.." : "Post"}</span>
+            </PostBtn>
         </ModalFooter>
       </CreateModal>
     </CreatePostContainer>
@@ -185,6 +191,20 @@ const PostBtn = styled.button`
   border: none;
   color: #ffff;
   border-radius: 40px;
+  position: relative;
+  &>div{
+    display: ${props => props.progress === 100 && "none"};
+    position: absolute;
+    top:0;
+    left: 0;
+    height: 100%;
+    width: ${props => props.progress}%;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: ${props=> props.progress === 100 ? "40px" : "40px 0  0 40px"};
+  }
+  &>span{
+    position: relative;
+  }
 `;
 
 const UploadFileButton = styled.label`
