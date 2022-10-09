@@ -1,43 +1,57 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
 import {
   FeedHeader,
   CreatePost,
   LeftSideCard,
   RightSideCard,
   CreatePostModal,
-  Post
+  Post,
+  Loader
 } from "components";
 import { Container } from "custom-styled-component";
 import { useNavigate } from "react-router-dom";
+import { getPost, clearError } from "redux/slices/postSlice";
+
 
 export const Feed = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const {  currentUser } = useSelector(state => state.auth)
-  const authData = useSelector((state) => state.auth);
+  const { currentUser } = useSelector(state => state.auth)
+  const { error, posts, loading } = useSelector((state) => state.post);
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  console.log(authData);
+
 
   // useEffect(() => {
   //   if (!currentUser) {
   //     navigate("/")
   //   }
   // },[currentUser])
+
+  useEffect(() => {
+
+    if (error) {
+      toast.error(error);
+      return dispatch(clearError());
+    }
+    dispatch(getPost())
+  }, [error])
   return (
     <>
       <FeedHeader />
-      <CreatePostModal isOpen={isOpen} setIsOpen={setIsOpen}/>
+      <CreatePostModal isOpen={isOpen} setIsOpen={setIsOpen} />
       <FeedPage>
         <LeftSideCard />
         <Main>
-          <CreatePost isOpen={isOpen} setIsOpen={setIsOpen}/>
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
+          <CreatePost setIsOpen={setIsOpen} />
+          {
+           loading ? <Loader /> : posts?.map(post => <Post content={post.content} />)
+
+          }
+
         </Main>
         <RightSideCard />
       </FeedPage>

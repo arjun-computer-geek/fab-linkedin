@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from 'prop-types';
 
 import { ThreeDotsIcon } from "components/icons";
 import { Avatar, ButtonWithIcon } from "custom-styled-component";
 import CameraIcon from "../../assets/camera.png";
 import PlusIcon from "../../assets/plus.png";
-import PostImg from "../../assets/post.jpg";
 import LoveIcon from "../../assets/love-sm.svg";
 import LikeIcon from "../../assets/like-sm.svg";
 import SupportIcon from "../../assets/support-sm.svg";
@@ -17,7 +17,9 @@ import CommentIcon from "../../assets/comment.png";
 import ShareIcon from "../../assets/share.png";
 import SendIcon from "../../assets/send.png";
 
-export const Post = () => {
+
+
+export const Post = ({ content, postPhoto }) => {
   return (
     <PostContainer>
       <UserActivity>
@@ -46,12 +48,11 @@ export const Post = () => {
       </User>
 
       <Description>
-        Much Respect ❤️ If you are determined and focused towards your goals,
-        Then no one can stop you !!
+        {content}
       </Description>
 
       <PostImageContainer>
-        <img src={PostImg} alt="post" />
+        <img src={postPhoto}  />
       </PostImageContainer>
 
       <LikeStatus>
@@ -83,11 +84,15 @@ export const Post = () => {
   );
 };
 
+Post.propTypes = {
+  postPhoto: PropTypes.string
+}
+
 const PostContainer = styled.div`
   margin: 10px 0;
   background-color: #ffff;
   width: 100%;
-  min-height: 100vh;
+  height: content-fit;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;

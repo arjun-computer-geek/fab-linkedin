@@ -7,7 +7,7 @@ import VideoIcon from "../../assets/video.png";
 import EventIcon from "../../assets/event.png";
 import ArticleIcon from "../../assets/article.png";
 
-export const CreatePost = ({isOpen, setIsOpen}) => {
+export const CreatePost = ({ setIsOpen}) => {
   return (
     <CreatePostContainer>
       <Avatar>

@@ -1,12 +1,23 @@
 import { Avatar, ButtonAsIcon } from "custom-styled-component";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import CameraIcon from "../../assets/camera.png";
 import PhotoIcon from "../../assets/photo.png";
 import VideoIcon from "../../assets/video.png";
 import DocumentIcon from "../../assets/document.jpg";
+import { useDispatch } from "react-redux";
+import { createPost } from "redux/slices/postSlice";
 
 export const CreatePostModal = ({isOpen, setIsOpen}) => {
+    const contentRef = useRef()
+    const dispatch = useDispatch()
+
+
+    const createPostHandler = () => {
+        dispatch(createPost({content: contentRef.current.value}))
+        setIsOpen(true)
+        contentRef.current.value = ""
+    }
   return (
     <CreatePostContainer id="modal" onClick={(e) => setIsOpen(!(e.target.id === 'modal'))} isOpen={{ display: isOpen ? "flex" : "none" }}>
       <CreateModal >
@@ -17,12 +28,12 @@ export const CreatePostModal = ({isOpen, setIsOpen}) => {
           </Avatar>
           <h3>Arjun Kumar</h3>
         </div>
-        <PostTextArea placeholder="Do you want to talk about?" />
+        <PostTextArea ref={contentRef} placeholder="Do you want to talk about?" />
         <ModalFooter>
           <ButtonAsIcon src={PhotoIcon} />
           <ButtonAsIcon src={VideoIcon} />
           <ButtonAsIcon src={DocumentIcon} />
-          <PostBtn>Post</PostBtn>
+          <PostBtn onClick={createPostHandler}>Post</PostBtn>
         </ModalFooter>
       </CreateModal>
     </CreatePostContainer>
