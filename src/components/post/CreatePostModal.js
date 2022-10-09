@@ -1,5 +1,5 @@
 import { Avatar, ButtonAsIcon } from "custom-styled-component";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import CameraIcon from "../../assets/camera.png";
 import PhotoIcon from "../../assets/photo.png";
@@ -7,30 +7,83 @@ import VideoIcon from "../../assets/video.png";
 import DocumentIcon from "../../assets/document.jpg";
 import { useDispatch } from "react-redux";
 import { createPost } from "redux/slices/postSlice";
+import { storage } from 'utils/init-firebase';
+import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage';
+import { v4 as uuid } from 'uuid'
+import { useNavigate } from "react-router-dom";
 
-export const CreatePostModal = ({isOpen, setIsOpen}) => {
-    const contentRef = useRef()
-    const dispatch = useDispatch()
+export const CreatePostModal = ({ isOpen, setIsOpen }) => {
+  const [file, setFile] = useState()
+  const [isConfirmdUpload, setIsConfirmUpload] = useState(false)
+  const [imgLink, setImgLink] = useState('')
+  const [photoPreview, setPhotoPreview] = useState();
+  
+  const contentRef = useRef()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
+  const uploadFile = async () => {
+    if (file === null) return;
 
-    const createPostHandler = () => {
-        dispatch(createPost({content: contentRef.current.value}))
-        setIsOpen(true)
-        contentRef.current.value = ""
+    const imgRef = ref(storage, `postPhotos/${file.name + uuid()}`)
+    const uploadTask = uploadBytesResumable(imgRef, file);
+
+    uploadTask.on('state_changed', null, null, async () => {
+      const res = await getDownloadURL(uploadTask.snapshot.ref)
+      setImgLink(res)
+    })
+  }
+
+  useEffect(() => {
+    if (isConfirmdUpload) {
+      uploadFile()
     }
+
+  }, [isConfirmdUpload])
+
+  const createPostHandler = () => {
+
+    dispatch(createPost({ content: contentRef.current.innerText, postPhoto: imgLink }))
+    setIsOpen(false)
+    contentRef.current.innerText = ""
+    navigate('/feed')
+  }
+  const fileChangeHandler = (e) => {
+    setFile(e.target.files[0])
+    const reader = new FileReader();
+    reader.onload = () => {
+
+      setPhotoPreview(reader.result)
+    }
+    reader.readAsDataURL(e.target.files[0]);
+
+    let status = window.confirm("Are You Sure want to upload");
+    setIsConfirmUpload(status)
+  }
   return (
-    <CreatePostContainer id="modal" onClick={(e) => setIsOpen(!(e.target.id === 'modal'))} isOpen={{ display: isOpen ? "flex" : "none" }}>
+    <CreatePostContainer id="modal" isOpen={{ display: isOpen ? "flex" : "none" }}>
       <CreateModal >
         <h2>Create a post</h2>
-        <div>
-          <Avatar>
-            <img src={CameraIcon} alt="profile-pic" />
-          </Avatar>
-          <h3>Arjun Kumar</h3>
-        </div>
-        <PostTextArea ref={contentRef} placeholder="Do you want to talk about?" />
+        <CrossBtn onClick={() => setIsOpen(false)}>X</CrossBtn>
+
+        <TextAreaContainer>
+          <div>
+            <Avatar>
+              <img src={CameraIcon} alt="profile-pic" />
+            </Avatar>
+            <h3>Arjun Kumar</h3>
+          </div>
+          <div>
+            <PostTextArea ref={contentRef} contentEditable="true" data-placeholder="Do you want to talk about?" />
+          </div>
+          {photoPreview && <PreviewPhoto src={photoPreview} />}
+        </TextAreaContainer>
+
         <ModalFooter>
-          <ButtonAsIcon src={PhotoIcon} />
+          <UploadFileButton >
+            <img src={PhotoIcon} alt="icon" />
+            <input type="file" onChange={fileChangeHandler} />
+          </UploadFileButton>
           <ButtonAsIcon src={VideoIcon} />
           <ButtonAsIcon src={DocumentIcon} />
           <PostBtn onClick={createPostHandler}>Post</PostBtn>
@@ -39,7 +92,27 @@ export const CreatePostModal = ({isOpen, setIsOpen}) => {
     </CreatePostContainer>
   );
 };
+const TextAreaContainer = styled.div`
+  overflow: auto;
+  width: 100%;
+  height: 82%;
 
+  
+  &>div:nth-child(1) {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 1rem;
+    h3 {
+      padding-left: 5px;
+    }
+  }
+`
+const PreviewPhoto = styled.img`
+  height: 60vh;
+  width: 100%;
+`
 const CreatePostContainer = styled.div`
   height: 100vh;
   width: 100vw;
@@ -51,7 +124,6 @@ const CreatePostContainer = styled.div`
   justify-content: center;
   `;
 const CreateModal = styled.div`
-
   position: relative;
   height: 80vh;
   width: 40%;
@@ -65,29 +137,41 @@ const CreateModal = styled.div`
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     color: rgba(0, 0, 0, 0.5);
   }
-  div {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    margin-bottom: 1rem;
-    h3 {
-      padding-left: 5px;
-    }
+`;
+const CrossBtn = styled.span`
+  display: inline-block;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 50%;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
   }
 `;
-const PostTextArea = styled.textarea`
+const PostTextArea = styled.pre`
+  -moz-appearance: textfield-multiline;
+  -webkit-appearance: textarea;
+  white-space: pre-wrap;
+  overflow-x: hidden;
   border: none;
   width: 100%;
+  height: auto;
   outline: none;
   resize: none;
   font-size: 1.5rem;
-  height: 60%;
+  height: 50%;
   margin-bottom: 0.4rem;
+  &:empty:before {
+    content:attr(data-placeholder);
+    color:gray
+  }
 `;
 const ModalFooter = styled.div`
-  width: 100%;
   height: 12%;
+  width: 50%;
   display: flex;
   flex-wrap: nowrap;
   gap: 20px;
@@ -102,3 +186,16 @@ const PostBtn = styled.button`
   color: #ffff;
   border-radius: 40px;
 `;
+
+const UploadFileButton = styled.label`
+  height: 25px;
+  width: 25px;
+  border: none;
+  img{
+      height: 100%;
+      width: 100%;
+  };
+  &>input[type='file']{
+    display: none
+  }
+`

@@ -14,7 +14,7 @@ export const getPost = createAsyncThunk(
         function getArrangedData() {
             return new Promise((resolve, reject) => {
 
-                const postRef = collection(db, 'post')
+                const postRef = collection(db, 'posts')
 
                 const q = query(postRef, orderBy('created', 'desc'))
 
@@ -40,12 +40,13 @@ export const getPost = createAsyncThunk(
 export const createPost = createAsyncThunk(
     "post/createPost",
     async (postData) => {
+        console.log(postData);
 
-        await addDoc(collection(db, 'post'), {
+        await addDoc(collection(db, 'posts'), {
             content: postData.content,
             likes: 0,
             parentId: null,
-            postPhoto: "",
+            postPhoto: postData.postPhoto,
             created: Timestamp.now()
 
         })

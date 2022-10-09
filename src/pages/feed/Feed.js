@@ -9,7 +9,7 @@ import {
   RightSideCard,
   CreatePostModal,
   Post,
-  Loader
+  Loader,
 } from "components";
 import { Container } from "custom-styled-component";
 import { useNavigate } from "react-router-dom";
@@ -35,8 +35,9 @@ export const Feed = () => {
 
     if (error) {
       toast.error(error);
-      return dispatch(clearError());
+      dispatch(clearError());
     }
+
     dispatch(getPost())
   }, [error])
   return (
@@ -48,7 +49,7 @@ export const Feed = () => {
         <Main>
           <CreatePost setIsOpen={setIsOpen} />
           {
-           loading ? <Loader /> : posts?.map(post => <Post content={post.content} />)
+            loading ? <Loader /> : posts?.map(post => <Post key={post.id} content={post.content} likes={post.likes} postPhoto= {post.postPhoto} />)
 
           }
 

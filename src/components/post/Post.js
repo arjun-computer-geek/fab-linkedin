@@ -19,7 +19,7 @@ import SendIcon from "../../assets/send.png";
 
 
 
-export const Post = ({ content, postPhoto }) => {
+export const Post = ({ content, postPhoto, likes}) => {
   return (
     <PostContainer>
       <UserActivity>
@@ -58,15 +58,15 @@ export const Post = ({ content, postPhoto }) => {
       <LikeStatus>
         <div>
           <ReactionContainer>
-            <img src={LoveIcon} alt="icon" />
             <img src={LikeIcon} alt="icon" />
+            <img src={LoveIcon} alt="icon" />
             <img src={SupportIcon} alt="icon" />
             <img src={CelebrateIcon} alt="icon" />
             <img src={CuriousIcon} alt="icon" />
             <img src={InsightfulIcon} alt="icon" />
           </ReactionContainer>
           <span>
-            <a href="#">1256</a>
+            <a href="#">{likes}</a>
           </span>
         </div>
         <ul>
